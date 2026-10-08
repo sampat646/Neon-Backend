@@ -10,7 +10,7 @@ export function createApp() {
   // CORS must come before routes so preflight OPTIONS gets ACAO headers.
   app.use(
     cors({
-      origin: ["http://localhost:5173", "http://127.0.0.1:5173","https://frontend-orcin-nine-i11xfklluu.vercel.app"],
+      origin: ["http://localhost:5173", "http://127.0.0.1:5173","https://frontend-orcin-nine-i11xfklluu.vercel.app", "https://frontend-8iw.pages.dev"],
       methods: ["GET", "POST", "PATCH", "OPTIONS"],
       allowedHeaders: ["Authorization", "Content-Type"],
     })
