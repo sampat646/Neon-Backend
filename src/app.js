@@ -8,9 +8,17 @@ import { errorHandler } from "./middlewares/error.middleware.js";
 export function createApp() {
   const app = express();
   // CORS must come before routes so preflight OPTIONS gets ACAO headers.
+  // Regex origins cover Cloudflare preview hashes (e.g. <hash>.frontend-8iw.pages.dev)
+  // and Vercel preview URLs, which change on every deploy and can't be listed exactly.
+  const allowedOriginPatterns = [
+    /^http:\/\/localhost:\d+$/,
+    /^http:\/\/127\.0\.0\.1:\d+$/,
+    /^https:\/\/([a-z0-9-]+\.)*frontend-8iw\.pages\.dev$/,
+    /^https:\/\/([a-z0-9-]+\.)*vercel\.app$/,
+  ];
   app.use(
     cors({
-      origin: ["http://localhost:5173", "http://127.0.0.1:5173","https://frontend-orcin-nine-i11xfklluu.vercel.app", "https://frontend-8iw.pages.dev"],
+      origin: allowedOriginPatterns,
       methods: ["GET", "POST", "PATCH", "OPTIONS"],
       allowedHeaders: ["Authorization", "Content-Type"],
     })
